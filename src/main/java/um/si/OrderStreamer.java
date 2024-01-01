@@ -82,25 +82,3 @@ public class OrderStreamer {
     }
 
 }
-/*
- //original
-        inputStream.map((k,v)->new KeyValue<>(Integer.valueOf(v.get("user_id").toString()),v.get("id").toString()))
-                .groupByKey(Grouped.with(Serdes.Integer(), Serdes.String())).count().toStream().mapValues(value -> value.toString())
-                .to("kafka-grouped-views", Produced.with(Serdes.Integer(), Serdes.String()));
-
-        inputStream.print(Printed.toSysOut());
-
-        KTable<Integer, String> orderCountsStream = builder.table("kafka-grouped-views", Consumed.with(Serdes.Integer(), Serdes.String()));
-        orderCountsStream.filter((key, value) -> Integer.valueOf(value) > 5).toStream()
-                .to("kafka-filter-5-views", Produced.with(Serdes.Integer(), Serdes.String()));
-
-        orderCountsStream.toStream().print(Printed.toSysOut());
-
-        inputStream
-                .map((k,v)->new KeyValue<>(v.get("id").toString(),Integer.valueOf(v.get("quantity").toString())))
-                .groupByKey(Grouped.with(Serdes.String(),Serdes.Integer()))
-                .reduce(Integer::sum)
-                .toStream()
-                .to("kafka-order-quantities", Produced.with(Serdes.String(), Serdes.Integer()));
-
-* */
